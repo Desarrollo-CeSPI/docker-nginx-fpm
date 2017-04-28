@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+[ -z $ROOT ] && (echo 'Must set $ROOT environment var' && exit 1)
+[ -z $PHP_INDEX_FILE ] && (echo 'Must set $PHP_INDEX_FILE environment var' && exit 1)
+[ -z $PHP_FILES ] && (echo 'Must set $PHP_FILES environment var' && exit 1)
+[ -z $PHP_UPSTREAM ] && (echo 'Must set $PHP_UPSTREAM environment var' && exit 1)
+[ -z $PHP_ROOT ] && (echo 'Must set $PHP_ROOT environment var' && exit 1)
+
+envsubst '$ROOT $PHP_INDEX_FILE $PHP_FILES $PHP_UPSTREAM $PHP_ROOT' < /etc/nginx/nginx.conf.tpl > /etc/nginx/nginx.conf
+
+nginx "$@"
