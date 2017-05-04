@@ -10,6 +10,8 @@ some variables must be set for integration:
 * **PHP\_FILES:** which php script files will be allowed to execute
 * **PHP\_UPSTREAM:** upstream container name and port to access FPM service
 * **PHP\_ROOT:** document root for php-fpm script. It can be different than
+* **NGINX_GLOBAL_CONFIG**: allows you to add custom nginx config at http {}
+  block level
   document_root
 
 ## Example usage
@@ -43,6 +45,7 @@ services:
       PHP_FILES: index
       PHP_UPSTREAM: app:9000
       PHP_ROOT: /app/web
+      NGINX_GLOBAL_CONFIG: 'set_real_ip_from 10.42.0.0/16;'
     ports:
       - "8080:80"
     volumes:
