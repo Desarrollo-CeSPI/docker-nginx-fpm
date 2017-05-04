@@ -8,6 +8,8 @@ set -e
 [ -z $PHP_UPSTREAM ] && (echo 'Must set $PHP_UPSTREAM environment var' && exit 1)
 [ -z $PHP_ROOT ] && (echo 'Must set $PHP_ROOT environment var' && exit 1)
 
-envsubst '$ROOT $PHP_INDEX_FILE $PHP_FILES $PHP_UPSTREAM $PHP_ROOT' < /etc/nginx/nginx.conf.tpl > /etc/nginx/nginx.conf
+echo -e $NGINX_GLOBAL_CONFIG > /etc/nginx/nginx-global.conf
+
+envsubst '$ROOT $PHP_INDEX_FILE $PHP_FILES $PHP_UPSTREAM $PHP_ROOT $REAL_IP_FROM_LIST' < /etc/nginx/nginx.conf.tpl > /etc/nginx/nginx.conf
 
 nginx "$@"
